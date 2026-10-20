@@ -38,7 +38,7 @@ export const getCategories = async (req: Request, res: Response) : Promise<void>
         res.json({ success: true, categories });
     } catch (error: any) {
         console.error("getCategories error:", error);
-        res.status(500).json({ success: false, message: error?.message || "Failed to fetch categories" });
+        res.status(500).json({ success: false, message: "Failed to fetch categories" });
     }
 }
 
@@ -51,7 +51,7 @@ export const createCategory = async (req: AuthenticatedRequest, res: Response) :
         }
 
         const { name } = req.body;
-        if(!name?.trim()){
+        if(typeof name !== "string" || !name?.trim()){
             res.status(400).json({ success: false, message: "Category name is required"});
             return;
         }
@@ -63,7 +63,7 @@ export const createCategory = async (req: AuthenticatedRequest, res: Response) :
         res.status(201).json({ success: true, message: "Category created", category});
     } catch (error: any) {
         console.error("getCategories error:", error);
-        res.status(500).json({ success: false, message: error?.message || "Failed to create categories" });
+        res.status(500).json({ success: false, message: "Failed to create categories" });
     }
 }
 
@@ -81,6 +81,6 @@ Promise<void> => {
         res.json({ success: true, message: "Category deleted successfully"});
     } catch (error: any) {
         console.error("getCategories error:", error);
-        res.status(500).json({ success: false, message: error?.message || "Failed to delete categories" });
+        res.status(500).json({ success: false, message: "Failed to delete categories" });
     }
 }
